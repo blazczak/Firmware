@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- *   Copyright (c) 2016 PX4 Development Team. All rights reserved.
+ *   Copyright (c) 2018 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -31,37 +31,59 @@
  *
  ****************************************************************************/
 
-/**
- * @file definitions.h
- * common platform-specific definitions & abstractions for gps
- * @author Beat Küng <beat-kueng@gmx.net>
- */
+#include <parameters/param.h>
+#include <px4_cli.h>
 
-#pragma once
-
-#include <px4_defines.h>
-#include <px4_time.h>
-
-#define GPS_INFO(...) PX4_INFO(__VA_ARGS__)
-#define GPS_WARN(...) PX4_WARN(__VA_ARGS__)
-#define GPS_ERR(...) PX4_ERR(__VA_ARGS__)
-
-#include <uORB/topics/vehicle_gps_position.h>
-#include <uORB/topics/satellite_info.h>
-
-#define gps_usleep px4_usleep
-
-#include <drivers/drv_hrt.h>
-
-/**
- * Get the current time in us. Function signature:
- * uint64_t hrt_absolute_time()
- */
-#define gps_absolute_time hrt_absolute_time
-typedef hrt_abstime gps_abstime;
-
-
-// TODO: this functionality is not available on the Snapdragon yet
-#ifdef __PX4_QURT
-#define NO_MKTIME
+#ifndef MODULE_NAME
+#define MODULE_NAME "cli"
 #endif
+
+#include <px4_log.h>
+
+#include <cstring>
+#include <errno.h>
+#include <cstdlib>
+
+int px4_get_parameter_value(const char *option, int &value)
+{
+	value = 0;
+
+	/* check if this is a param name */
+	if (strncmp("p:", option, 2) == 0) {
+
+		const char *param_name = option + 2;
+
+		/* user wants to use a param name */
+		param_t param_handle = param_find(param_name);
+
+		if (param_handle != PARAM_INVALID) {
+
+			if (param_type(param_handle) != PARAM_TYPE_INT32) {
+				return -EINVAL;
+			}
+
+			int32_t pwm_parm;
+			int ret = param_get(param_handle, &pwm_parm);
+
+			if (ret != 0) {
+				return ret;
+			}
+
+			value = pwm_parm;
+
+		} else {
+			PX4_ERR("param name '%s' not found", param_name);
+			return -ENXIO;
+		}
+
+	} else {
+		char *ep;
+		value = strtol(option, &ep, 0);
+
+		if (*ep != '\0') {
+			return -EINVAL;
+		}
+	}
+
+	return 0;
+}

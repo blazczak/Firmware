@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- *   Copyright (c) 2016 PX4 Development Team. All rights reserved.
+ *   Copyright (c) 2018 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -32,36 +32,23 @@
  ****************************************************************************/
 
 /**
- * @file definitions.h
- * common platform-specific definitions & abstractions for gps
- * @author Beat Küng <beat-kueng@gmx.net>
+ * @file px4_cli.h
+ * Helper methods for command-line parameters
  */
 
 #pragma once
 
-#include <px4_defines.h>
-#include <px4_time.h>
-
-#define GPS_INFO(...) PX4_INFO(__VA_ARGS__)
-#define GPS_WARN(...) PX4_WARN(__VA_ARGS__)
-#define GPS_ERR(...) PX4_ERR(__VA_ARGS__)
-
-#include <uORB/topics/vehicle_gps_position.h>
-#include <uORB/topics/satellite_info.h>
-
-#define gps_usleep px4_usleep
-
-#include <drivers/drv_hrt.h>
 
 /**
- * Get the current time in us. Function signature:
- * uint64_t hrt_absolute_time()
+ * Parse a CLI argument to an integer. There are 2 valid formats:
+ * - 'p:<param_name>'
+ *   in this case the parameter is loaded from an integer parameter
+ * - <int>
+ *   an integer value, so just a string to integer conversion is done
+ * @param option CLI argument
+ * @param value returned value
+ * @return 0 on success, -errno otherwise
  */
-#define gps_absolute_time hrt_absolute_time
-typedef hrt_abstime gps_abstime;
+int px4_get_parameter_value(const char *option, int &value);
 
 
-// TODO: this functionality is not available on the Snapdragon yet
-#ifdef __PX4_QURT
-#define NO_MKTIME
-#endif
