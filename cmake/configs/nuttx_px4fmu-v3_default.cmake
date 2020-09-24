@@ -25,6 +25,7 @@ set(config_module_list
 	drivers/gps
 	drivers/imu/adis16448
 	drivers/imu/bmi160
+	drivers/imu/icm20948
 	drivers/imu/l3gd20
 	drivers/imu/lsm303d
 	drivers/imu/mpu6000

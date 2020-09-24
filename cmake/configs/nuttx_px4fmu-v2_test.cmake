@@ -23,6 +23,7 @@ set(config_module_list
 	#drivers/hott
 	#drivers/iridiumsbd
 	#drivers/irlock
+	drivers/imu/icm20948
 	drivers/imu/l3gd20
 	drivers/imu/lsm303d
 	drivers/magnetometer/hmc5883

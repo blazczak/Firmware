@@ -18,6 +18,7 @@ set(config_module_list
 	drivers/imu/bma180
 	drivers/imu/bmi055
 	drivers/imu/bmi160
+	drivers/imu/icm20948
 	drivers/camera_trigger
 	drivers/gps
 	drivers/irlock

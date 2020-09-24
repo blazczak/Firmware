@@ -18,6 +18,7 @@ set(config_module_list
 	drivers/samv7/tone_alarm
 	drivers/px4fmu
 	drivers/rgbled
+	drivers/imu/icm20948
 	drivers/imu/mpu6000
 	drivers/imu/mpu9250
 	drivers/imu/lsm303d
