@@ -34,6 +34,7 @@ px4_add_module(
 	MODULE drivers__rc_input
 	MAIN rc_input
 	COMPILE_FLAGS
+		-Wno-error=cast-function-type -Wno-error=stringop-truncation
 	SRCS
 		RCInput.cpp
 		crsf_telemetry.cpp

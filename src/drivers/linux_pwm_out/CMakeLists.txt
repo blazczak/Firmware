@@ -35,6 +35,7 @@ px4_add_module(
 	MODULE drivers__linux_pwm_out
 	MAIN linux_pwm_out
 	COMPILE_FLAGS
+		-Wno-error=cast-function-type -Wno-error=stringop-truncation
 	SRCS
 		PCA9685.cpp
 		navio_sysfs.cpp
