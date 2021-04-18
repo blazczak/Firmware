@@ -149,6 +149,7 @@
 
 #define STM32_RCC_DCKCFGR2_USART1SRC  RCC_DCKCFGR2_USART1SEL_APB
 #define STM32_RCC_DCKCFGR2_USART2SRC  RCC_DCKCFGR2_USART2SEL_APB
+#define STM32_RCC_DCKCFGR2_USART3SRC  RCC_DCKCFGR2_USART3SEL_APB
 #define STM32_RCC_DCKCFGR2_UART4SRC   RCC_DCKCFGR2_UART4SEL_APB
 #define STM32_RCC_DCKCFGR2_UART5SRC   RCC_DCKCFGR2_UART5SEL_APB
 #define STM32_RCC_DCKCFGR2_USART6SRC  RCC_DCKCFGR2_USART6SEL_APB
@@ -334,7 +335,9 @@
 #define BUTTON_USER_BIT    (1 << BUTTON_USER)
 /* Alternate function pin selections ************************************************/
 
-#define GPIO_USART1_RX   GPIO_USART1_RX_2    /* PB7[CN11-21] CONFLICT w/ BLUE LED*/
+//#define GPIO_USART1_RX   GPIO_USART1_RX_2    /* PB7[CN11-21] CONFLICT w/ BLUE LED*/
+//#define GPIO_USART1_TX   GPIO_USART1_TX_1    /* PA9[CN12-33] */
+#define GPIO_USART1_RX   GPIO_USART1_RX_1    /* PA10[CN12-21] */
 #define GPIO_USART1_TX   GPIO_USART1_TX_2    /* PB6[CN12-17] */
 
 #define GPIO_USART2_RX   GPIO_USART2_RX_2   /* PD6[CN11-43]  */
@@ -346,16 +349,25 @@
 #define GPIO_USART3_TX   GPIO_USART3_TX_3   /* PD8[CN12-10]  */
 #define GPIO_USART3_RTS  GPIO_USART3_RTS_2  /* PD12[CN12-43] */
 #define GPIO_USART3_CTS  GPIO_USART3_CTS_2  /* PD11[CN12-45] */
+
 #if !defined(CONFIG_STM32F7_CAN1) && defined(CONFIG_STM32F7_UART4)
 #  define GPIO_UART4_RX    GPIO_UART4_RX_4    /* PD0[CN11-57]  */
 #  define GPIO_UART4_TX    GPIO_UART4_TX_4    /* PD1[CN11-55]  */
 #endif
-#define GPIO_USART6_RX   GPIO_USART6_RX_2   /* PG9[CN11-63]  */
-#define GPIO_USART6_TX   GPIO_USART6_TX_2   /* PG14[CN12-61] */
+
+#define GPIO_UART5_RX    GPIO_UART5_RX_1    /* PD2[CN11-4] */
+#define GPIO_UART5_TX    GPIO_UART5_TX_1    /* PC12[CN11-3] */
+
+//#define GPIO_USART6_RX   GPIO_USART6_RX_2   /* PG9[CN11-63]  */
+//#define GPIO_USART6_TX   GPIO_USART6_TX_2   /* PG14[CN12-61] */
+#define GPIO_USART6_RX   GPIO_USART6_RX_1   /* PC7[CN12-19]  */
+#define GPIO_USART6_TX   GPIO_USART6_TX_1   /* PC6[CN12-4] */
 #define GPIO_USART6_RTS  GPIO_USART6_RTS_2  /* PG8[CN12-66]  */
 #define GPIO_USART6_CTT  GPIO_USART6_CTS_2  /* PG15[CN11-64  */
 
-#define GPIO_UART7_RX    GPIO_UART7_RX_2    /* PF6[CN11-9]  */
+//#define GPIO_UART7_RX    GPIO_UART7_RX_2    /* PF6[CN11-9]  */
+//#define GPIO_UART7_TX    GPIO_UART7_TX_1    /* PE8[CN12-40]  */
+#define GPIO_UART7_RX    GPIO_UART7_RX_1    /* PE7[CN12-44]  */
 #define GPIO_UART7_TX    GPIO_UART7_TX_1    /* PE8[CN12-40]  */
 
 /* USART8:
@@ -366,8 +378,8 @@
  *
  * USART8: has no remap
  *
- *      GPIO_UART7_RX                          PE0[CN12-64]
- *      GPIO_UART7_TX                          PE1[CN11-61]
+ *      GPIO_UART8_RX                          PE0[CN12-64]
+ *      GPIO_UART8_TX                          PE1[CN11-61]
  */
 
 /* UART RX DMA configurations */
@@ -403,20 +415,33 @@
  *
  */
 
-#define GPIO_SPI1_MISO   GPIO_SPI1_MISO_1   /* PA6[CN12-13]  */
+//#define GPIO_SPI1_MISO   GPIO_SPI1_MISO_1   /* PA6[CN12-13]  */
+//#define GPIO_SPI1_MOSI   GPIO_SPI1_MOSI_1   /* PA7[CN7-14]  */
+//#define GPIO_SPI1_SCK    GPIO_SPI1_SCK_3    /* PG11[CN11-79s] */
+#define GPIO_SPI1_MISO   GPIO_SPI1_MISO_1   /* PA6[CN7-12]  */
 #define GPIO_SPI1_MOSI   GPIO_SPI1_MOSI_3   /* PD7[CN11-45]  */
-#define GPIO_SPI1_SCK    GPIO_SPI1_SCK_3    /* PG11[CN11-79s] */
+#define GPIO_SPI1_SCK    GPIO_SPI1_SCK_1    /* PA5[CN7-10] */
 
-#define GPIO_SPI4_MISO   GPIO_SPI4_MISO_2   /* PE13[CN12-55]  */
-#define GPIO_SPI4_MOSI   GPIO_SPI4_MOSI_1   /* PE6[CN11-62]  */
-#define GPIO_SPI4_SCK    GPIO_SPI4_SCK_1    /* PE2[CN11-46]  */
+#define GPIO_SPI2_MISO   GPIO_SPI2_MISO_2   /* PC2[CN10-9] */
+#define GPIO_SPI2_MOSI   GPIO_SPI2_MOSI_2   /* PC3[CN9-5] */
+#define GPIO_SPI2_SCK    GPIO_SPI2_SCK_2    /* PB10[CN11-25] */
+
+//#define GPIO_SPI4_MISO   GPIO_SPI4_MISO_2   /* PE13[CN12-55]  */
+//#define GPIO_SPI4_MOSI   GPIO_SPI4_MOSI_1   /* PE6[CN11-62]  */
+//#define GPIO_SPI4_SCK    GPIO_SPI4_SCK_1    /* PE2[CN11-46]  */
+#define GPIO_SPI4_MISO   GPIO_SPI4_MISO_1   /* PE5[CN9-18]  */
+#define GPIO_SPI4_MOSI   GPIO_SPI4_MOSI_1   /* PE6[CN9-20]  */
+#define GPIO_SPI4_SCK    GPIO_SPI4_SCK_1    /* PE2[CN9-14]  */
 
 #define GPIO_SPI5_MISO   GPIO_SPI5_MISO_1   /* PF8[CN11-54]  */
 #define GPIO_SPI5_MOSI   GPIO_SPI5_MOSI_1   /* PF9[CN11-56]  */
 #define GPIO_SPI5_SCK    GPIO_SPI5_SCK_1    /* PF7[CN11-11]  */
 
+//#define GPIO_SPI6_MISO   GPIO_SPI6_MISO_1   /* PG12[CN11-65] */
+//#define GPIO_SPI6_MOSI   GPIO_SPI6_MOSI_3   /* PB5[CN12-29] */
+//#define GPIO_SPI6_SCK    GPIO_SPI6_SCK_1    /* PG13[CN11-68] */
 #define GPIO_SPI6_MISO   GPIO_SPI6_MISO_1   /* PG12[CN11-65] */
-#define GPIO_SPI6_MOSI   GPIO_SPI6_MOSI_3   /* PB5[CN12-29] */
+#define GPIO_SPI6_MOSI   GPIO_SPI6_MOSI_1   /* PG14[CN12-61] */
 #define GPIO_SPI6_SCK    GPIO_SPI6_SCK_1    /* PG13[CN11-68] */
 
 /* I2C
@@ -453,9 +478,9 @@
                                              GPIO_PIN9)
 
 /* PF1 can not be used on Morpho connector without SB mods. */
-#if defined(CONFIG_STM32F7_I2C2)
-#  warning "PF1 can not be used on Morpho connector without SB mods."
-#endif
+//#if defined(CONFIG_STM32F7_I2C2)
+//#  warning "PF1 can not be used on Morpho connector without SB mods."
+//#endif
 #define GPIO_I2C2_SCL GPIO_I2C2_SCL_2       /* PF1[CN11-51]  */
 #define GPIO_I2C2_SDA GPIO_I2C2_SDA_2       /* PF0[CN11-53]  */
 
@@ -473,6 +498,23 @@
                                              GPIO_PORTF      | \
                                              GPIO_PIN0)
 
+#define GPIO_I2C3_SCL GPIO_I2C3_SCL_2       /* PH7[CN??]  */
+#define GPIO_I2C3_SDA GPIO_I2C3_SDA_1       /* PC9[CN12-1]]  */
+
+#define GPIO_I2C3_SCL_GPIO                  (GPIO_OUTPUT     | \
+                                             GPIO_OPENDRAIN  | \
+                                             GPIO_SPEED_50MHz| \
+                                             GPIO_OUTPUT_SET | \
+                                             GPIO_PORTH      | \
+                                             GPIO_PIN7)
+
+#define GPIO_I2C3_SDA_GPIO                  (GPIO_OUTPUT     | \
+                                             GPIO_OPENDRAIN  | \
+                                             GPIO_SPEED_50MHz| \
+                                             GPIO_OUTPUT_SET | \
+                                             GPIO_PORTC      | \
+                                             GPIO_PIN9)
+
 #define GPIO_I2C4_SCL GPIO_I2C4_SCL_2       /* PF14[CN12-50] */
 #define GPIO_I2C4_SDA GPIO_I2C4_SDA_2       /* PF15[CN12-60] */
 
@@ -488,7 +530,7 @@
                                              GPIO_SPEED_50MHz| \
                                              GPIO_OUTPUT_SET | \
                                              GPIO_PORTF      | \
-                                             GPIO_PIN14)
+                                             GPIO_PIN15)
 
 /* SDMMC1
  *
@@ -548,6 +590,8 @@
 # define PROBE_4    (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTE|GPIO_PIN9)  /* PE9[CN12-52]  */
 # define PROBE_5    (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTD|GPIO_PIN13) /* PD13[CN12-41] */
 # define PROBE_6    (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTD|GPIO_PIN14) /* PD14[CN12-46] */
+# define PROBE_7    (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTD|GPIO_PIN15) /* PD15[CN12-48] */
+# define PROBE_8    (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTA|GPIO_PIN3) /* PA3[CN12-19] */
 
 # define PROBE_INIT(mask) \
     do { \
@@ -557,6 +601,8 @@
         if ((mask)& PROBE_N(4)) { stm32_configgpio(PROBE_4); } \
         if ((mask)& PROBE_N(5)) { stm32_configgpio(PROBE_5); } \
         if ((mask)& PROBE_N(6)) { stm32_configgpio(PROBE_6); } \
+        if ((mask)& PROBE_N(7)) { stm32_configgpio(PROBE_7); } \
+        if ((mask)& PROBE_N(8)) { stm32_configgpio(PROBE_8); } \
     } while(0)
 
 # define PROBE(n,s)  do {stm32_gpiowrite(PROBE_##n,(s));}while(0)

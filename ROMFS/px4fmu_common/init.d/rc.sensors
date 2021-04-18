@@ -329,6 +329,36 @@ then
 	ist8310 -C -b 5 start
 fi
 
+if ver hwcmp PX4NUCLEOF767ZI_V1
+then
+
+	# Internal SPI bus ICM-20602
+	mpu6000 -R 8 -s -T 20602 start
+
+	# Internal SPI bus ICM-20689
+	mpu6000 -R 8 -z -T 20689 start
+
+	# Internal SPI bus ICM-20948
+	icm20948 -s start
+
+	# Internal SPI bus BMI055 accel
+	bmi055 -A -R 10 start
+
+	# Internal SPI bus BMI055 gyro
+	bmi055 -G -R 10 start
+
+	# Possible external compasses
+	hmc5883 -C -T -X start
+
+	# Possible external compasses
+
+	ist8310 -C -b 1 start
+	ist8310 -C -b 2 start
+
+	# Possible internal compass
+	ist8310 -C -b 5 start
+fi
+
 if ver hwcmp AEROCORE2
 then
 	l3gd20 -R 12 start
