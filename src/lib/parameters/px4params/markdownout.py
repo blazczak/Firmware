@@ -54,7 +54,7 @@ class MarkdownTablesOutput():
                 if increment:
                     max_min_combined+='(%s)' % increment
 
-                if long_desc is not '':
+                if not long_desc == '':
                     long_desc = '<p><strong>Comment:</strong> %s</p>' % long_desc
 
                 if name == code:
