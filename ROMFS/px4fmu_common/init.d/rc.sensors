@@ -357,6 +357,9 @@ then
 
 	# Possible internal compass
 	ist8310 -C -b 5 start
+
+	# MPU9250 on I2C3 with address 0x68
+	mpu9250 -X start
 fi
 
 if ver hwcmp AEROCORE2
