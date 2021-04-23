@@ -358,8 +358,11 @@ then
 	# Possible internal compass
 	ist8310 -C -b 5 start
 
-	# MPU9250 on I2C3 with address 0x68
+	# MPU9250 on I2C4 with address 0x68
 	mpu9250 -X start
+
+	# BMP280 on I2C4 with address 0x76
+	bmp280 -X start
 fi
 
 if ver hwcmp AEROCORE2
