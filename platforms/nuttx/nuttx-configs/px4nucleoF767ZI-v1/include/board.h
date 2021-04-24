@@ -336,9 +336,8 @@
 /* Alternate function pin selections ************************************************/
 
 //#define GPIO_USART1_RX   GPIO_USART1_RX_2    /* PB7[CN11-21] CONFLICT w/ BLUE LED*/
-//#define GPIO_USART1_TX   GPIO_USART1_TX_1    /* PA9[CN12-33] */
 #define GPIO_USART1_RX   GPIO_USART1_RX_1    /* PA10[CN12-21] */
-#define GPIO_USART1_TX   GPIO_USART1_TX_2    /* PB6[CN12-17] */
+#define GPIO_USART1_TX   GPIO_USART1_TX_1    /* PA9[CN12-33] */
 
 #define GPIO_USART2_RX   GPIO_USART2_RX_2   /* PD6[CN11-43]  */
 #define GPIO_USART2_TX   GPIO_USART2_TX_2   /* PD5[CN11-41]  */
@@ -355,8 +354,8 @@
 #  define GPIO_UART4_TX    GPIO_UART4_TX_4    /* PD1[CN11-55]  */
 #endif
 
-#define GPIO_UART5_RX    GPIO_UART5_RX_1    /* PD2[CN11-4] */
-#define GPIO_UART5_TX    GPIO_UART5_TX_1    /* PC12[CN11-3] */
+#define GPIO_UART5_RX    GPIO_UART5_RX_2    /* PB6[CN12-17] */
+#define GPIO_UART5_TX    GPIO_UART5_TX_2    /* PB5[CN12-29] */
 
 //#define GPIO_USART6_RX   GPIO_USART6_RX_2   /* PG9[CN11-63]  */
 //#define GPIO_USART6_TX   GPIO_USART6_TX_2   /* PG14[CN12-61] */
