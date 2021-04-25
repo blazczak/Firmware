@@ -97,6 +97,7 @@ __EXPORT void stm32_spiinitialize(void)
 #ifdef CONFIG_STM32F7_SPI1
 	stm32_configgpio(GPIO_SPI_CS_MPU9250);
 	stm32_configgpio(GPIO_SPI_CS_HMC5983);
+	stm32_configgpio(GPIO_SPI_CS_BMP280);
 	stm32_configgpio(GPIO_SPI_CS_MS5611);
 	stm32_configgpio(GPIO_SPI_CS_ICM_20608_G);
 
@@ -106,6 +107,7 @@ __EXPORT void stm32_spiinitialize(void)
 	 */
 	stm32_gpiowrite(GPIO_SPI_CS_MPU9250, 1);
 	stm32_gpiowrite(GPIO_SPI_CS_HMC5983, 1);
+	stm32_gpiowrite(GPIO_SPI_CS_BMP280, 1);
 	stm32_gpiowrite(GPIO_SPI_CS_MS5611, 1);
 	stm32_gpiowrite(GPIO_SPI_CS_ICM_20608_G, 1);
 
@@ -264,7 +266,7 @@ __EXPORT void stm32_spi4select(FAR struct spi_dev_s *dev, uint32_t devid, bool s
 	ASSERT(PX4_SPI_BUS_ID(sel) == PX4_SPI_BUS_RAMTRON);
 
 	/* Making sure the other peripherals are not selected */
-	for (int cs = 0; arraySize(spi4selects_gpio) > 1 && cs < arraySize(spi4selects_gpio); cs++) {
+	for (size_t cs = 0; arraySize(spi4selects_gpio) > 1 && cs < arraySize(spi4selects_gpio); cs++) {
 		stm32_gpiowrite(spi4selects_gpio[cs], 1);
 	}
 
@@ -291,7 +293,7 @@ __EXPORT void stm32_spi5select(FAR struct spi_dev_s *dev, uint32_t devid, bool s
 	ASSERT(PX4_SPI_BUS_ID(sel) == PX4_SPI_BUS_BARO);
 
 	/* Making sure the other peripherals are not selected */
-	for (int cs = 0; arraySize(spi5selects_gpio) > 1 && cs < arraySize(spi5selects_gpio); cs++) {
+	for (size_t cs = 0; arraySize(spi5selects_gpio) > 1 && cs < arraySize(spi5selects_gpio); cs++) {
 		stm32_gpiowrite(spi5selects_gpio[cs], 1);
 	}
 
@@ -341,11 +343,13 @@ __EXPORT void board_spi_reset(int ms)
 	/* disable SPI bus */
 	stm32_configgpio(GPIO_SPI_CS_OFF_MPU9250);
 	stm32_configgpio(GPIO_SPI_CS_OFF_HMC5983);
+	stm32_configgpio(GPIO_SPI_CS_OFF_BMP280);
 	stm32_configgpio(GPIO_SPI_CS_OFF_MS5611);
 	stm32_configgpio(GPIO_SPI_CS_OFF_ICM_20608_G);
 
 	stm32_gpiowrite(GPIO_SPI_CS_OFF_MPU9250, 0);
 	stm32_gpiowrite(GPIO_SPI_CS_OFF_HMC5983, 0);
+	stm32_gpiowrite(GPIO_SPI_CS_OFF_BMP280, 0);
 	stm32_gpiowrite(GPIO_SPI_CS_OFF_MS5611, 0);
 	stm32_gpiowrite(GPIO_SPI_CS_OFF_ICM_20608_G, 0);
 
@@ -385,6 +389,7 @@ __EXPORT void board_spi_reset(int ms)
 #ifdef CONFIG_STM32F7_SPI1
 	stm32_configgpio(GPIO_SPI_CS_MPU9250);
 	stm32_configgpio(GPIO_SPI_CS_HMC5983);
+	stm32_configgpio(GPIO_SPI_CS_BMP280);
 	stm32_configgpio(GPIO_SPI_CS_MS5611);
 	stm32_configgpio(GPIO_SPI_CS_ICM_20608_G);
 
@@ -394,6 +399,7 @@ __EXPORT void board_spi_reset(int ms)
 	 */
 	stm32_gpiowrite(GPIO_SPI_CS_MPU9250, 1);
 	stm32_gpiowrite(GPIO_SPI_CS_HMC5983, 1);
+	stm32_gpiowrite(GPIO_SPI_CS_BMP280, 1);
 	stm32_gpiowrite(GPIO_SPI_CS_MS5611, 1);
 	stm32_gpiowrite(GPIO_SPI_CS_ICM_20608_G, 1);
 

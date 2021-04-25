@@ -358,10 +358,16 @@ then
 	# Possible internal compass
 	ist8310 -C -b 5 start
 
-	# MPU9250 on I2C4 with address 0x68
-	mpu9250 -X start
+	# Internal SPI bus MPU9250
+	mpu9250 -s start
 
-	# BMP280 on I2C4 with address 0x76
+	# Internal SPI bus BMP280
+	# bmp280 -s start
+
+	# Possible MPU9250 on I2C2 with address 0x68
+	mpu9250 -I start
+
+	# Possible BMP280 on I2C4 with address 0x76
 	bmp280 -X start
 fi
 
