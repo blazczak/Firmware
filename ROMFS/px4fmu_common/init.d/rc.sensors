@@ -362,7 +362,7 @@ then
 	mpu9250 -s start
 
 	# Internal SPI bus BMP280
-	# bmp280 -s start
+	bmp280 -s start
 
 	# Possible MPU9250 on I2C2 with address 0x68
 	mpu9250 -I start
